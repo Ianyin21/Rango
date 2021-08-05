@@ -1,0 +1,30 @@
+{% extends 'rango/base.html' %}
+{% block title %} Registration Page {% endblock %}
+{% block body_block %}
+<div class="hero-unit">
+    <h1>Register with Rango</h1>
+    <div class="container">
+    {% if registered %}
+        Rango Says: <strong>Thank you for registering.</strong><br><br>
+        <p><a href="{% url 'login' %}">Login</a> when you are ready</p>
+    {% else %}
+        <form id="user_form" class="sign-in span8" method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2 class="sign-in heading">Sign up here</h2>
+            {% for field in user_form.visible_fields %}
+            {{ field.errors }}
+            <small>{{ field.help_text }}</small><br/>
+            {{ field }} <br/>
+            {% endfor %}
+            {% for field in profile_form.visible_fields %}
+            {{ field.errors }}
+            <small> {{ field.help_text }} </small><br/>
+            {{ field }} <br/>
+            {% endfor %}
+            <br>
+            <input type="submit" class="btn btn-primary" name="submit" value="Register">
+        </form>
+    {% endif %}
+</div>
+    </div>
+{% endblock %}
